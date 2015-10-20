@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>phaser proj</title>
+</head>
+
+<body>
+<script src="js/phaser.min.js"></script>
+<script type="text/javascript">
+    var game = new Phaser.Game(800, 600, Phaser.AUTO, '', {preload: preload, create: create, update: update});
+    
+    function preload() {
+        game.load.image('platform', 'assets/platform.png');
+    }
+    
+    function create() {
+        game.add.sprite(400, 300, 'platform');
+    }
+    
+    function update() {
+        
+    }
+</script>
+</body>
+
+</html>
