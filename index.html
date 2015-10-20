@@ -26,6 +26,7 @@
         game.physics.arcade.enable(player);
         player.body.collideWorldBounds = true;
         player.body.gravity.y = 1000;
+        player.body.drag.x = 3000; 
         
         cursors = game.input.keyboard.createCursorKeys();
     }
@@ -33,17 +34,26 @@
     function update() {
         game.physics.arcade.collide(player, platforms);
         
-        player.body.velocity.x = 0;
+//        player.body.velocity.x = 0;
         
         if(cursors.left.isDown) {
-            player.body.velocity.x = -200;
+            player.body.velocity.x -= 200;
         }
         else if(cursors.right.isDown) {
-            player.body.velocity.x = 200;
+            player.body.velocity.x += 200;
         }
         if(cursors.up.isDown && player.body.touching.down) {
             player.body.velocity.y = -600;
         }
+        
+        if(player.body.velocity.x > 1000) {
+            player.body.velocity.x = 1000;
+        }
+        else if(player.body.velocity.x < -1000) {
+            player.body.velocity.x = -1000;
+        }
+        
+        if(player.body.x > )
     }
 </script>
 </body>
