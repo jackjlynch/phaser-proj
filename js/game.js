@@ -13,21 +13,17 @@ function create() {
     var ground = platforms.create(0, game.world.height - 32, 'platform');
     ground.scale.setTo(12.5, 1)
     ground.body.immovable = true;
-//    ground.checkWorldBounds = true;
-//    ground.events.onOutOfBounds.add(groundOutOfBounds, this);
 
     //make second platform
     ground = platforms.create(800, game.world.height - 32, 'platform');
     ground.scale.setTo(12.5, 1)
     ground.body.immovable = true;
-//    ground.checkWorldBounds = true;
-//    ground.events.onOutOfBounds.add(groundOutOfBounds, this);
 
     player = game.add.sprite(0, game.world.height - 64, 'player');
     game.physics.arcade.enable(player);
     player.body.collideWorldBounds = true;
     player.body.gravity.y = 1000;
-    player.body.drag.x = 3000; 
+    player.body.drag.x = 300; 
 
     cursors = game.input.keyboard.createCursorKeys();
 
@@ -40,7 +36,7 @@ function create() {
 function update() {
     game.physics.arcade.collide(player, platforms);
 
-//        player.body.velocity.x = 0;
+    player.body.velocity.x += 200;
 
     if(cursors.left.isDown) {
         player.body.velocity.x -= 200;
@@ -55,8 +51,8 @@ function update() {
     if(player.body.velocity.x > 1000) {
         player.body.velocity.x = 1000;
     }
-    else if(player.body.velocity.x < -1000) {
-        player.body.velocity.x = -1000;
+    else if(player.body.velocity.x < 100) {
+        player.body.velocity.x = 200;
     }
     
     platforms.forEach(function(platform) {
