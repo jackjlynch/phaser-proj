@@ -11,13 +11,17 @@ function create() {
     platforms = game.add.group();
     platforms.enableBody = true;
     var ground = platforms.create(0, game.world.height - 32, 'platform');
-    ground.scale.setTo(18.75, 1)
+    ground.scale.setTo(12.5, 1)
     ground.body.immovable = true;
+//    ground.checkWorldBounds = true;
+//    ground.events.onOutOfBounds.add(groundOutOfBounds, this);
 
-//        make second platform
+    //make second platform
     ground = platforms.create(800, game.world.height - 32, 'platform');
-    ground.scale.setTo(18.75, 1)
+    ground.scale.setTo(12.5, 1)
     ground.body.immovable = true;
+//    ground.checkWorldBounds = true;
+//    ground.events.onOutOfBounds.add(groundOutOfBounds, this);
 
     player = game.add.sprite(0, game.world.height - 64, 'player');
     game.physics.arcade.enable(player);
@@ -30,6 +34,7 @@ function create() {
     game.world.setBounds(0, 0, 1600, 600);
 
     game.camera.follow(player);
+    game.stage.backgroundColor = "#0000FF";
 }
 
 function update() {
@@ -53,4 +58,11 @@ function update() {
     else if(player.body.velocity.x < -1000) {
         player.body.velocity.x = -1000;
     }
+    
+    platforms.forEach(function(platform) {
+        if(platform.body.position.x + platform.body.width <= game.camera.view.x) {
+            platform.body.position.x += 2 * platform.body.width;
+            game.world.setBounds(game.world.width - platform.body.width, 0, game.world.width + platform.body.width, game.world.height);
+        }
+    })
 }
