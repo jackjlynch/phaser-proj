@@ -22,6 +22,11 @@
         ground.scale.setTo(18.75, 1)
         ground.body.immovable = true;
         
+//        make second platform
+        ground = platforms.create(800, game.world.height - 32, 'platform');
+        ground.scale.setTo(18.75, 1)
+        ground.body.immovable = true;
+        
         player = game.add.sprite(0, game.world.height - 64, 'player');
         game.physics.arcade.enable(player);
         player.body.collideWorldBounds = true;
@@ -29,6 +34,10 @@
         player.body.drag.x = 3000; 
         
         cursors = game.input.keyboard.createCursorKeys();
+        
+        game.world.setBounds(0, 0, 1600, 600);
+        
+        game.camera.follow(player);
     }
     
     function update() {
@@ -52,8 +61,6 @@
         else if(player.body.velocity.x < -1000) {
             player.body.velocity.x = -1000;
         }
-        
-        if(player.body.x > )
     }
 </script>
 </body>
