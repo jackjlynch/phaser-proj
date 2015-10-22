@@ -1,9 +1,9 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create, update: update});
-var platforms;
 
 function preload() {
     game.load.image('platform', 'assets/platform.png');
     game.load.image('player', 'assets/player.png');
+    game.load.image('wall', 'assets/wall.png');
 }
 
 function create() {
@@ -18,6 +18,12 @@ function create() {
     ground = platforms.create(800, game.world.height - 32, 'platform');
     ground.scale.setTo(12.5, 1)
     ground.body.immovable = true;
+    
+    walls = game.add.group();
+    walls.enableBody = true;
+    var wall;
+    wall = walls.create((game.world.width / 2), game.world.height - 160, 'wall');
+    wall.body.immovable = true;
 
     player = game.add.sprite(0, game.world.height - 64, 'player');
     game.physics.arcade.enable(player);
@@ -35,8 +41,9 @@ function create() {
 
 function update() {
     game.physics.arcade.collide(player, platforms);
+    game.physics.arcade.collide(player, walls);
 
-    player.body.velocity.x += 200;
+    player.body.velocity.x += 0;
 
     if(cursors.left.isDown) {
         player.body.velocity.x -= 200;
@@ -52,7 +59,7 @@ function update() {
         player.body.velocity.x = 1000;
     }
     else if(player.body.velocity.x < 100) {
-        player.body.velocity.x = 200;
+        player.body.velocity.x = 100;
     }
     
     platforms.forEach(function(platform) {
