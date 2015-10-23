@@ -11,12 +11,12 @@ function create() {
     platforms = game.add.group();
     platforms.enableBody = true;
     var ground = platforms.create(0, game.world.height - 32, 'platform');
-    ground.scale.setTo(12.5, 1)
+    ground.scale.setTo(12.5, 1);
     ground.body.immovable = true;
 
     //make second platform
     ground = platforms.create(800, game.world.height - 32, 'platform');
-    ground.scale.setTo(12.5, 1)
+    ground.scale.setTo(12.5, 1);
     ground.body.immovable = true;
     
     walls = game.add.group();
@@ -66,6 +66,12 @@ function update() {
         if(platform.body.position.x + platform.body.width <= game.camera.view.x) {
             platform.body.position.x += 2 * platform.body.width;
             game.world.setBounds(game.world.width - platform.body.width, 0, game.world.width + platform.body.width, game.world.height);
+        }
+    })
+    walls.forEach(function(wall) {
+        if(wall.body.position.x + wall.body.width <= game.camera.view.x) {
+            wall.body.position.x += Math.random() * (game.world.width / 2) + game.world.width / 2;
+            wall.scale.setTo(1, Math.random() * 1.5);
         }
     })
 }
